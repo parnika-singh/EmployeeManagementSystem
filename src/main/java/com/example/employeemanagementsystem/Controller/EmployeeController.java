@@ -9,31 +9,35 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.employeemanagementsystem.Service.EmployeeService;
-import com.example.employeemanagementsystem.model.Employee;
+//import com.example.employeemanagementsystem.model.Employee;
+import com.example.employeemanagementsystem.dto.EmployeeDto;
+
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/employees/v1")
-public class EmployeeController{
+public class EmployeeController {
 
     @Autowired
-    private EmployeeService service;
+    private EmployeeService employeeService;
 
     @GetMapping("/view")
     public String viewEmployees(Model model) {
-        
-        model.addAttribute("employees", service.getAllEmployees());
+        List<EmployeeDto> employeeList = employeeService.getAllEmployees();
+        model.addAttribute("employees", employeeList);
         return "employee-list";
     }
 
     @GetMapping("/add")
-    public String addEmployeeForm(Model model) {
-        model.addAttribute("employee", new Employee());
+    public String showAddForm(Model model) {
+        model.addAttribute("employee", new EmployeeDto());
         return "employee-form";
     }
 
     @PostMapping("/add")
-    public String submitEmployeeForm(@ModelAttribute Employee employee) {
-        service.saveEmployee(employee);
+    public String addEmployee(@ModelAttribute("employee") EmployeeDto employeeDto) {
+        employeeService.addEmployee(employeeDto);
         return "redirect:/employees/v1/view";
     }
 }

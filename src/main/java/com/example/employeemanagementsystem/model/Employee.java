@@ -1,63 +1,65 @@
 package com.example.employeemanagementsystem.model;
 
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
 @Entity
-@Table(name="employee")
 public class Employee {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY) //try this by removing it
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="name")
+
     private String name;
-    @Column(name="department")
     private String department;
-    @Column(name="salary")
     private BigDecimal salary;
-    @Column(name="date_of_joining")
-    private LocalDate date_of_joining;
 
-    // public Employee() {}
+    @Column(name = "date_of_joining")
+    private LocalDate dateOfJoining;
 
-    public BigDecimal getSalary() {
-        return salary;
-    }
+    public Employee() {}
 
-    public void setSalary(BigDecimal salary) {
-        this.salary = salary;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
+    public Employee(String name, String department, BigDecimal salary, LocalDate dateOfJoining) {
+        this.name = name;
         this.department = department;
+        this.salary = salary;
+        this.dateOfJoining = dateOfJoining;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
+    public String getDepartment() {
+        return department;
+    }
+
+    public BigDecimal getSalary() {
+        return salary;
+    }
+
+    public LocalDate getDateOfJoining() {
+        return dateOfJoining;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public LocalDate getDate_of_joining() {
-        return date_of_joining;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
-    public void setDate_of_joining(LocalDate date_of_joining) {
-        this.date_of_joining = date_of_joining;
+    public void setSalary(BigDecimal salary) {
+        this.salary = salary;
     }
-    
 
+    public void setDateOfJoining(LocalDate dateOfJoining) {
+        this.dateOfJoining = dateOfJoining;
+    }
 }

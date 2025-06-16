@@ -1,10 +1,12 @@
 package com.example.employeemanagementsystem.Controller;
 
-import com.example.employeemanagementsystem.model.Employee;
+//import com.example.employeemanagementsystem.model.Employee;
 import com.example.employeemanagementsystem.Service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.example.employeemanagementsystem.dto.EmployeeDto;
+import org.springframework.http.*;
 
 import java.util.List;
 
@@ -16,13 +18,14 @@ public class EmployeeRestController {
     private EmployeeService employeeService;
 
     @PostMapping("/add")
-    public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
-        Employee saved = employeeService.saveEmployee(employee);
-        return ResponseEntity.ok(saved);
+    public ResponseEntity<EmployeeDto> addEmployee(@RequestBody EmployeeDto employeeDto) {
+        EmployeeDto saved = employeeService.addEmployee(employeeDto);
+        return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
 
     @GetMapping("/view")
-    public ResponseEntity<List<Employee>> getAllEmployees() {
-        return ResponseEntity.ok(employeeService.getAllEmployees());
+    public ResponseEntity<List<EmployeeDto>> getAllEmployees() {
+        List<EmployeeDto> employees = employeeService.getAllEmployees();
+        return ResponseEntity.ok(employees);
     }
 }
