@@ -1,8 +1,13 @@
 package com.example.employeemanagementsystem.model;
 
-import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
 public class Employee {
@@ -11,6 +16,7 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique=true) //for unique values
     private String name;
     private String department;
     private BigDecimal salary;
